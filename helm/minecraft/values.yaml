@@ -17,7 +17,7 @@ minecraft:
 
 volume:
   storage: 10Gi
-  storageClassName: rookfs
+  storageClassName: cephfs
 
 resources:
   limits:
