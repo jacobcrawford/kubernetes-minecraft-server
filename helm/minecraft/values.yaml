@@ -11,10 +11,13 @@ minecraft:
   gamemode: 'survival'
   motd: 'Your super-cool, super-kube, minecraft server' # Message of the Day
   port: 25565
+  image: 
+    name: itzg/minecraft-server
+    tag: java17
 
 volume:
-  storage: 3Gi
-  path: '/mnt/local-volumes/minecraft' # Path to wherever you want to save your worldfile
+  storage: 10Gi
+  storageClassName: rookfs
 
 resources:
   limits:
