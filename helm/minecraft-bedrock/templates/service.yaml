@@ -8,5 +8,6 @@ spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.minecraft.port }}
+      protocol: UDP
   selector:
     app: {{ .Values.minecraft.name }}
