@@ -1,0 +1,24 @@
+minecraft:
+  name: minecraft-bedrock
+  gamemode: 'survival'
+  motd: 'Your minecraft bedrock server 9000' 
+  port: 19132
+  image: 
+    name: itzg/minecraft-bedrock-server
+    tag: 2023.8.1
+
+service:
+  type: LoadBalancer
+
+volume:
+  storage: 10Gi
+  storageClassName: cephfs
+
+resources:
+  limits:
+    memory: 1.5Gi
+  requests:
+    memory: 1.5Gi
+
+serviceAccount:
+  create: true

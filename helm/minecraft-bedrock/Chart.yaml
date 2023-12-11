@@ -1,0 +1,5 @@
+apiVersion: v2
+name: minecraft-bedrock
+description: A Helm chart for Minecraft Bedrock
+type: application
+version: 0.1.0

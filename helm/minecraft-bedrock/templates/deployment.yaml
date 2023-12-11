@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.minecraft.name }}
+  labels:
+    app: {{ .Values.minecraft.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.minecraft.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.minecraft.name }}
+    spec:
+      volumes:
+      - name: minecraft-data
+        persistentVolumeClaim:
+          claimName: {{ .Values.minecraft.name }}-data-pvc
+      containers:
+      - name: {{ .Values.minecraft.name }}
+        image: {{ .Values.minecraft.image.name }}:{{ .Values.minecraft.image.tag }} 
+        resources:
+          limits:
+            memory: {{ .Values.resources.limits.memory }}
+          requests:
+            memory: {{ .Values.resources.requests.memory }}
+        env:
+          - name:  EULA
+            value: 'TRUE'
+          - name:  VERSION
+            value: 'LATEST'
+          - name: GAMEMODE
+            value: {{ .Values.minecraft.gamemode }}
+          - name: MOTD
+            value: {{ .Values.minecraft.motd }}
+          - name: ALLOW_FLIGHT
+            value: 'TRUE'
+        ports:
+        - containerPort: {{ .Values.minecraft.port }}
+          name: minecraft
+        volumeMounts:
+          - name: minecraft-data
+            mountPath:  /data
+        readinessProbe:
+          exec:
+            command:
+            - mcstatus
+            - 127.0.0.1
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 30
+        livenessProbe:
+          exec:
+            command:
+            - mcstatus
+            - 127.0.0.1
+            - ping
+          initialDelaySeconds: 30
+          periodSeconds: 30
