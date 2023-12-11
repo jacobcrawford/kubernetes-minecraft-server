@@ -39,6 +39,7 @@ spec:
             value: 'TRUE'
         ports:
         - containerPort: {{ .Values.minecraft.port }}
+          protocol: UDP
           name: minecraft
         volumeMounts:
           - name: minecraft-data
