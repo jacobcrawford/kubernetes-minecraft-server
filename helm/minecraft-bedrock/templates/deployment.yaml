@@ -37,6 +37,8 @@ spec:
             value: {{ .Values.minecraft.motd }}
           - name: ALLOW_FLIGHT
             value: 'TRUE'
+          - name: ONLINE_MODE
+            value: 'FALSE'
         ports:
         - containerPort: {{ .Values.minecraft.port }}
           protocol: UDP
